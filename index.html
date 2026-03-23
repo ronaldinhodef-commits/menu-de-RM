@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Tienda de Ronal y Moha | American Style Restaurant</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. VARIABLES Y RESETEO (CORE)
+           ========================================= */
+        :root {
+            /* Paleta de Colores Estilo Foster's Hollywood */
+            --color-primary: #bf0a0a; /* Rojo Americano */
+            --color-secondary: #0a0a0a; /* Negro Profundo */
+            --color-accent: #f1c40f; /* Amarillo Mostaza/Oro */
+            --color-bg-dark: #1a1a1a;
+            --color-bg-light: #ffffff;
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --color-grey: #e0e0e0;
+
+            /* Tipografías */
+            --font-logo: 'Alfa Slab One', cursive;
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+
+            /* Sombras y Efectos */
+            --shadow-card: 0 10px 20px rgba(0,0,0,0.5);
+            --transition-fast: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           2. COMPONENTES REUTILIZABLES (UI)
+           ========================================= */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+        }
+
+        .btn--primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn--primary:hover {
+            background-color: white;
+            color: var(--color-primary);
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-align: center;
+            color: var(--color-text-light);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 4px;
+            background-color: var(--color-accent);
+            margin: 10px auto 0;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--color-grey);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        /* =========================================
+           3. HEADER Y NAVEGACIÓN
+           ========================================= */
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1920') no-repeat center/cover;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid var(--color-primary);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .brand-logo {
+            font-family: var(--font-logo);
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            text-shadow: 2px 2px 0 var(--color-accent);
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        .lang-switcher {
+            background: transparent;
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            padding: 5px 15px;
+            font-family: var(--font-heading);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .lang-switcher:hover {
+            background-color: var(--color-accent);
+            color: var(--color-secondary);
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-logo);
+            font-size: 5rem;
+            color: var(--color-text-light);
+            text-shadow: 4px 4px 0 var(--color-primary);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--color-grey);
+        }
+
+        /* =========================================
+           4. GRID DEL MENÚ (COMPLEJIDAD CSS)
+           ========================================= */
+        .menu-page {
+            padding: 80px 0;
+            background-color: #111;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Diseño especial tipo revista para escritorio */
+        @media (min-width: 1024px) {
+            .menu-section--bebidas .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .menu-section--principales .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            /* La hamburguesa ocupa dos columnas para destacar */
+            .menu-item--featured {
+                grid-column: span 2;
+                display: flex;
+            }
+            .menu-item--featured .menu-item__image-wrapper {
+                width: 50%;
+            }
+            .menu-item--featured .menu-item__info {
+                width: 50%;
+            }
+        }
+
+        /* =========================================
+           5. TARJETAS DE PLATOS (MENU ITEMS)
+           ========================================= */
+        .menu-item {
+            background-color: var(--color-bg-light);
+            color: var(--color-text-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition-slow);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px) rotate(1deg);
+        }
+
+        .menu-item__image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .menu-item__featured-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background-color: var(--color-accent);
+            color: var(--color-secondary);
+            padding: 5px 40px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 10;
+        }
+
+        .menu-item__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .menu-item:hover .menu-item__img {
+            transform: scale(1.1);
+        }
+
+        /* Gradiente sobre la imagen estilo Foster's */
+        .menu-item__image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .menu-item__info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .menu-item__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .menu-item__title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            position: absolute; /* Superpuesto en la imagen */
+            bottom: 10px;
+            left: 20px;
+            color: white;
+            z-index: 11;
+            text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+        }
+        
+        /* Ajuste para ítems sin posición absoluta en título si se prefiere abajo */
+        .menu-item__info .menu-item__title--inline {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            color: var(--color-secondary);
+            text-shadow: none;
+            margin-bottom: 10px;
+        }
+
+        .menu-item__price {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .menu-item__description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* =========================================
+           6. COMPLEJIDAD INTERACTIVA (PANCAKE)
+           ========================================= */
+        .pancake-config {
+            background-color: var(--color-grey);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: auto;
+        }
+
+        .pancake-config__title {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pancake-config__options {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Ocultar radio buttons reales */
+        .pancake-radio {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Estilizar labels como botones */
+        .pancake-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 15px;
+            background-color: white;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            transition: var(--transition-fast);
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--color-text-dark);
+        }
+
+        .pancake-radio:checked + .pancake-label {
+            border-color: var(--color-primary);
+            background-color: #fff0f0;
+            color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(191,10,10,0.2);
+        }
+        
+        .pancake-label-icon {
+            font-size: 1.2rem;
+        }
+
+        /* =========================================
+           7. FOOTER
+           ========================================= */
+        .footer {
+            background-color: var(--color-secondary);
+            padding: 50px 0;
+            text-align: center;
+            border-top: 5px solid var(--color-accent);
+        }
+
+        .footer-logo {
+            font-family: var(--font-logo);
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--color-primary);
+        }
+
+        .copy {
+            color: var(--color-grey);
+            font-size: 0.9rem;
+        }
+
+        /* =========================================
+           8. ANIMACIONES
+           ========================================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="brand-logo">RONAL <span>&</span> MOHA'S</a>
+        <ul class="nav-menu">
+            <li><a href="#drinks" class="nav-link js-nav-link" data-key="nav_drinks">Bebidas</a></li>
+            <li><a href="#mains" class="nav-link js-nav-link" data-key="nav_mains">Principales</a></li>
+            <li><a href="#desserts" class="nav-link js-nav-link" data-key="nav_desserts">Postres</a></li>
+            <li><button class="lang-switcher" onclick="switchLanguage()">EN</button></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <div class="hero-content">
+            <h1 data-key="hero_title">Authentic American Taste</h1>
+            <p data-key="hero_subtitle">Descubre el verdadero sabor en cada bocado. Solo aquí.</p>
+            <a href="#drinks" class="btn btn--primary" data-key="hero_btn">Ver Menú</a>
+        </div>
+    </header>
+
+    <main class="menu-page">
+        <div class="container">
+
+            <section id="drinks" class="menu-section menu-section--bebidas">
+                <h2 class="section-title" data-key="title_drinks">Bebidas</h2>
+                <p class="section-subtitle" data-key="subtitle_drinks">Refrescantes, naturales y llenas de sabor.</p>
+                
+                <div class="menu-grid" id="grid-drinks">
+                    </div>
+            </section>
+
+            <section id="mains" class="menu-section menu-section--principales">
+                <h2 class="section-title" data-key="title_mains">Platos Principales</h2>
+                <p class="section-subtitle" data-key="subtitle_mains">Los clásicos americanos que te encantan.</p>
+                
+                <div class="menu-grid" id="grid-mains">
+                    </div>
+            </section>
+
+            <section id="desserts" class="menu-section menu-section--postres">
+                <h2 class="section-title" data-key="title_desserts">Postres</h2>
+                <p class="section-subtitle" data-key="subtitle_desserts">El final dulce perfecto para tu experiencia.</p>
+                
+                <div class="menu-grid" id="grid-desserts">
+                    </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">RONAL <span>&</span> MOHA'S</div>
+            <p class="copy">&copy; 2026 Tienda de Ronal y Moha. Real American Food. RM shops.</p>
+        </div>
+    </footer>
+
+    <script>
+        // BASE DE DATOS DE IDIOMAS Y MENÚ (Alta Complejidad)
+        const langData = {
+            es: {
+                // UI Elements
+                nav_drinks: "Bebidas", nav_mains: "Principales", nav_desserts: "Postres",
+                hero_title: "El Auténtico Sabor", hero_subtitle: "Grandes porciones, grandes momentos. Estilo Hollywood.", hero_btn: "Explorar Menú",
+                title_drinks: "Refrescos y Batidos", subtitle_drinks: "Sed bienvenidos al paraíso líquido.",
+                title_mains: "Genuine American Food", subtitle_mains: "Hamburgesas, Sandwiches y clásicos inigualables.",
+                title_desserts: "Sweet Hollywood", subtitle_desserts: "Si no pides postre, no has venido.",
+                pancake_choose: "Personaliza tu Pancake", honey: "Miel", chocolate: "Chocolate",
+                pancake_desc_base: "Nuestros famosos pancakes esponjosos",
+                with: "con",
+
+                // Items Bebidas
+                item_b1: { name: "Batido de Manzana", desc: "Suave y refrescante, con manzanas seleccionadas.", price: "5.50" },
+                item_b2: { name: "Batido de Plátano", desc: "Clásico, cremoso y energético.", price: "5.50" },
+                item_b3: { name: "Batido de Fresa", desc: "El favorito de siempre, con fresas naturales.", price: "5.90" },
+                item_b4: { name: "Batido de Kiwi", desc: "Exótico toque ácido lleno de Vitamina C.", price: "5.90" },
+                item_b5: { name: "Jugo de Naranja", desc: "Recién exprimido, 100% natural.", price: "4.50" },
+                item_b6: { name: "Pomelo con Limón", desc: "Mezcla cítrica radical para valientes.", price: "4.80" },
+                item_b7: { name: "Jugo de Pera", desc: "Dulce, delicado y refrescante.", price: "4.50" },
+
+                // Items Principales
+                item_p1: { name: "Huevo Benedict", desc: "Huevos poché sobre muffin inglés con salsa holandesa y bacon crujiente.", price: "12.90" },
+                item_p2: { name: "Chicken Sandwich", desc: "Pechuga de pollo braseada, lechuga, tomate y nuestra salsa secreta.", price: "13.50" },
+                item_p3: { name: "Ensalada de Pollo", desc: "Mix de lechugas, pollo crispy, croutons y salsa César casera.", price: "11.90" },
+                item_p4: { name: "Director's Burger", desc: "250g de carne de vacuno, queso cheddar fundido, cebolla caramelizada.", price: "15.90" },
+                item_p5: { name: "Tostada Francesa", desc: "Pan brioche bañado en huevo y canela, servido con sirope de arce.", price: "10.50" },
+
+                // Items Postres
+                item_d1: { name: "Yogurt Solo", desc: "Cremoso yogurt griego natural, sin azúcares añadidos.", price: "4.00" },
+                item_d2: { name: "Strawberry Supreme", desc: "Helado de fresa artesanal acompañado de nata montada.", price: "6.50" },
+                item_d3: { name: "Blockbuster Pancakes", price: "7.90" }, // Descripción dinámica
+                item_d4: { name: "Yogurt & Berries", desc: "Cereales crujientes con yogurt y frutos del bosque.", price: "5.90" },
+                item_d5: { name: "Cheesecake New York", desc: "La auténtica tarta de queso horneada con base de galleta.", price: "7.20" },
+                item_d6: { name: "Tiramisú Hollywood", desc: "Receta italiana con un toque de licor y cacao.", price: "7.00" },
+            },
+            en: {
+                // UI Elements
+                nav_drinks: "Drinks", nav_mains: "Mains", nav_desserts: "Desserts",
+                hero_title: "Authentic Taste", hero_subtitle: "Big portions, great times. Hollywood style.", hero_btn: "Explore Menu",
+                title_drinks: "Shakes & Juices", subtitle_drinks: "Welcome to liquid paradise.",
+                title_mains: "Genuine American Food", subtitle_mains: "Unmatched burgers, sandwiches, and classics.",
+                title_desserts: "Sweet Hollywood", subtitle_desserts: "If you don't order dessert, you weren't here.",
+                pancake_choose: "Customize your Pancake", honey: "Honey", chocolate: "Chocolate",
+                pancake_desc_base: "Our famous fluffy pancakes",
+                with: "with",
+
+                // Items Bebidas
+                item_b1: { name: "Apple Shake", desc: "Smooth and refreshing, made with selected apples.", price: "5.50" },
+                item_b2: { name: "Banana Shake", desc: "Classic, creamy, and energetic.", price: "5.50" },
+                item_b3: { name: "Strawberry Shake", desc: "All-time favorite, with natural strawberries.", price: "5.90" },
+                item_b4: { name: "Kiwi Shake", desc: "Exotic tart touch full of Vitamin C.", price: "5.90" },
+                item_b5: { name: "Orange Juice", desc: "Freshly squeezed, 100% natural.", price: "4.50" },
+                item_b6: { name: "Grapefruit & Lemon", desc: "Radical citrus mix for the brave.", price: "4.80" },
+                item_b7: { name: "Pear Juice", desc: "Sweet, delicate, and refreshing.", price: "4.50" },
+
+                // Items Principales
+                item_p1: { name: "Eggs Benedict", desc: "Poached eggs on English muffin with hollandaise sauce and crispy bacon.", price: "12.90" },
+                item_p2: { name: "Chicken Sandwich", desc: "Braised chicken breast, lettuce, tomato, and our secret sauce.", price: "13.50" },
+                item_p3: { name: "Chicken Salad", desc: "Mixed greens, crispy chicken, croutons, and homemade Caesar dressing.", price: "11.90" },
+                item_p4: { name: "Director's Burger", desc: "250g beef patty, melted cheddar cheese, caramelized onion.", price: "15.90" },
+                item_p5: { name: "French Toast", desc: "Brioche bread dipped in egg and cinnamon, served with maple syrup.", price: "10.50" },
+
+                // Items Postres
+                item_d1: { name: "Plain Yogurt", desc: "Creamy natural Greek yogurt, no added sugars.", price: "4.00" },
+                item_d2: { name: "Strawberry Supreme", desc: "Artisan strawberry ice cream served with whipped cream.", price: "6.50" },
+                item_d3: { name: "Blockbuster Pancakes", price: "7.90" }, // Dynamic desc
+                item_d4: { name: "Yogurt & Berries", desc: "Crunchy cereals with yogurt and forest berries.", price: "5.90" },
+                item_d5: { name: "New York Cheesecake", desc: "The authentic baked cheesecake with a cookie base.", price: "7.20" },
+                item_d6: { name: "Hollywood Tiramisu", desc: "Italian recipe with a touch of liqueur and cocoa.", price: "7.00" },
+            }
+        };
+
+        // Estructura del Menú (Imágenes Placeholder de alta calidad)
+        const menuStructure = {
+            drinks: [
+                { id: 'b1', img: 'https://images.unsplash.com/photo-1596131397999-bb0497554366?q=80&w=600' },
+                { id: 'b2', img: 'https://images.unsplash.com/photo-1570191396228-44754394b910?q=80&w=600' },
+                { id: 'b3', img: 'https://images.unsplash.com/photo-1586985289906-406988974504?q=80&w=600' },
+                { id: 'b4', img: 'https://images.unsplash.com/photo-1615220367990-264775432616?q=80&w=600' },
+                { id: 'b5', img: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?q=80&w=600' },
+                { id: 'b6', img: 'https://images.unsplash.com/photo-1616611956502-0a13df5d68aa?q=80&w=600' },
+                { id: 'b7', img: 'https://images.unsplash.com/photo-1628156172655-0819777174e3?q=80&w=600' },
+            ],
+            mains: [
+                { id: 'p1', img: 'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?q=80&w=800' },
+                { id: 'p2', img: 'https://images.unsplash.com/photo-1592415499556-74fcb9f18667?q=80&w=800' },
+                { id: 'p3', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800' },
+                { id: 'p4', img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800', featured: true }, // Especial
+                { id: 'p5', img: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=800' },
+            ],
+            desserts: [
+                { id: 'd1', img: 'https://images.unsplash.com/photo-1506458928220-4696ac744a5d?q=80&w=600' },
+                { id: 'd2', img: 'https://images.unsplash.com/photo-1579954115545-a95591f28bf0?q=80&w=600' },
+                { id: 'd3', img: 'https://images.unsplash.com/photo-1565299543923-37dd37887442?q=80&w=600', interactive: true }, // Especial Pancake
+                { id: 'd4', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=600' },
+                { id: 'd5', img: 'https://images.unsplash.com/photo-1533134242443-d4fd215315ad?q=80&w=600' },
+                { id: 'd6', img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=600' },
+            ]
+        };
+
+        let currentLang = 'es';
+
+        // FUNCIÓN PRINCIPAL DE RENDERIZADO
+        function renderMenu() {
+            const lang = langData[currentLang];
+
+            // 1. Traducir elementos estáticos de la UI
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (lang[key]) el.innerText = lang[key];
+            });
+
+            // 2. Renderizar Secciones Dinámicas
+            renderSection('drinks', 'grid-drinks', lang);
+            renderSection('mains', 'grid-mains', lang);
+            renderSection('desserts', 'grid-desserts', lang);
+            
+            // 3. Actualizar estado del botón de idioma
+            document.querySelector('.lang-switcher').innerText = currentLang === 'es' ? 'EN' : 'ES';
+        }
+
+        // FUNCIÓN HELPER PARA RENDERIZAR UNA SECCIÓN
+        function renderSection(sectionKey, gridId, lang) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = ''; // Limpiar
+
+            menuStructure[sectionKey].forEach(item => {
+                const data = lang[`item_${item.id}`];
+                
+                // Complejidad: Determinar clases extras (featured)
+                let cardClasses = 'menu-item';
+                if (item.featured) cardClasses += ' menu-item--featured';
+
+                // Complejidad: Construir el HTML de la tarjeta
+                let html = `
+                    <article class="${cardClasses}">
+                        <figure class="menu-item__image-wrapper">
+                            ${item.featured ? `<div class="menu-item__featured-badge">BEST SELLER</div>` : ''}
+                            <img src="${item.img}" alt="${data.name}" class="menu-item__img">
+                            <h3 class="menu-item__title">${data.name}</h3>
+                        </figure>
+                        <div class="menu-item__info">
+                            <div class="menu-item__header">
+                                <span class="menu-item__price">${data.price}€</span>
+                            </div>
+                `;
+
+                // Complejidad: Lógica especial para Pancake Interactivo
+                if (item.interactive) {
+                    html += `
+                            <p class="menu-item__description" id="pancake-desc">${lang.pancake_desc_base}.</p>
+                            <aside class="pancake-config">
+                                <h4 class="pancake-config__title">
+                                    <span class="pancake-config__title-icon">🥞</span>
+                                    ${lang.pancake_choose}
+                                </h4>
+                                <div class="pancake-config__options">
+                                    <input type="radio" name="pancake_topping" value="honey" id="topping-honey" class="pancake-radio" onchange="updatePancakeDesc('honey')">
+                                    <label for="topping-honey" class="pancake-label">
+                                        <span class="pancake-label-icon">🍯</span> ${lang.honey}
+                                    </label>
+
+                                    <input type="radio" name="pancake_topping" value="chocolate" id="topping-chocolate" class="pancake-radio" onchange="updatePancakeDesc('chocolate')">
+                                    <label for="topping-chocolate" class="pancake-label">
+                                        <span class="pancake-label-icon">🍫</span> ${lang.chocolate}
+                                    </label>
+                                </div>
+                            </aside>
+                    `;
+                } else {
+                    html += `<p class="menu-item__description">${data.desc}</p>`;
+                }
+
+                html += `
+                        </div>
+                    </article>
+                `;
+                grid.innerHTML += html;
+            });
+        }
+
+        // LÓGICA INTERACTIVA DEL PANCAKE (JavaScript Complejo)
+        function updatePancakeDesc(toppingKey) {
+            const lang = langData[currentLang];
+            const descEl = document.getElementById('pancake-desc');
+            const toppingName = lang[toppingKey];
+            
+            // Construcción gramatical dinámica basada en idioma
+            let newDesc = "";
+            if (currentLang === 'es') {
+                newDesc = `${lang.pancake_desc_base} ${lang.with} <strong style="color:var(--color-primary)">${toppingName}</strong>.`;
+            } else {
+                newDesc = `${lang.pancake_desc_base} ${lang.with} <strong style="color:var(--color-primary)">${toppingName}</strong>.`;
+            }
+            
+            descEl.innerHTML = newDesc;
+            
+            // Animación de feedback visual
+            descEl.style.animation = 'none';
+            descEl.offsetHeight; // trigger reflow
+            descEl.style.animation = 'fadeInUp 0.5s ease';
+        }
+
+        // CAMBIO DE IDIOMA
+        function switchLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            renderMenu();
+        }
+
+        // Carga inicial
+        window.onload = renderMenu;
+
+        // Smooth Scroll para los enlaces
+        document.querySelectorAll('.js-nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
